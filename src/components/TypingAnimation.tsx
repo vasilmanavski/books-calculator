@@ -1,6 +1,8 @@
-import React from 'react';
+interface Props {
+  text: string;
+}
 
-const TypingAnimation = ({ text }) => {
+const TypingAnimation = ({ text }: Props) => {
   return (
     <div className={'typing-animation'}>{text}?</div>
   );

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 const minutesOptions = ['5', '10', '15', '20', '30', '40', '50', '60'];
@@ -23,7 +23,7 @@ const CalculateBooks = () => {
   const [minutes, setMinutes] = useState('');
   const [speed, setSpeed] = useState('');
   const [period, setPeriod] = useState('');
-  const [booksRead, setBooksRead] = useState<number>(null);
+  const [booksRead, setBooksRead] = useState<number>(0);
 
   const calculateBooks = useMemo(() => {
 
@@ -38,10 +38,10 @@ const CalculateBooks = () => {
       '3 years': 36,
     }[period];
 
-    const daysInPeriod = periodMonths * 30; // Approximate number of days
+    const daysInPeriod = periodMonths! * 30;
     const totalMinutes = minutesParsed * daysInPeriod;
     const totalWords = totalMinutes * wordsPerMinute;
-    const averageWordsPerBook = 70000; // Assuming an average book has 50,000 words
+    const averageWordsPerBook = 70000;
     const numberOfBooks = Math.ceil(totalWords / averageWordsPerBook);
 
     setBooksRead(numberOfBooks);

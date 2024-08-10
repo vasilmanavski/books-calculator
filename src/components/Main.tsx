@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'src/components/Image';
 import CalculateBooks from 'src/components/CalculateBooks';
 
