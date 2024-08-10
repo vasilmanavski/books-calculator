@@ -1,0 +1,19 @@
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 0.15em solid orange;
+  white-space: nowrap;
+  font-size: 1.6rem;
+  animation: typing 1s steps(8, end) forwards, blink 0.8s infinite;
+  width: 0; /* Initial width */
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: orange; }
+}
