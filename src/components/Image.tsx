@@ -9,7 +9,7 @@ const Image = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 'calc(38vh - 50px)',
+        minHeight: 'calc(38vh - 50px)',
         position: 'relative',
         overflow: 'hidden',
         backgroundImage: 'url(src/assets/image.jpg)',

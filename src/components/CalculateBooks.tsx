@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, Snackbar, Typography } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
-const minutesOptions = [5, 10, 15, 20, 30, 40, 50, 60];
+const minutesOptions = ['5', '10', '15', '20', '30', '40', '50', '60'];
 
 const speedOptions = [
   { value: '175', label: '200 wpm | Sloooooow' },
@@ -20,36 +20,14 @@ const periodOptions = [
 ];
 
 const CalculateBooks = () => {
-  const [minutes, setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState('');
   const [speed, setSpeed] = useState('');
   const [period, setPeriod] = useState('');
   const [booksRead, setBooksRead] = useState<number>(null);
-  const [isCalculateClicked, setIsCalculateClicked] = useState<boolean>(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-
-    if (minutes == 0 || speed == '' || period == '') {
-
-      setSnackbarMessage('Please fill in all fields.');
-      setSnackbarOpen(true);
-
-      return;
-    }
-
-    setSnackbarMessage('');
-    setSnackbarOpen(false);
-
-    setIsCalculateClicked(!isCalculateClicked);
-  }, [minutes, speed, period]);
-
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
 
   const calculateBooks = useMemo(() => {
+
+    const minutesParsed = parseInt(minutes, 10);
     const wordsPerMinute = parseInt(speed, 10);
 
     const periodMonths = {
@@ -61,7 +39,7 @@ const CalculateBooks = () => {
     }[period];
 
     const daysInPeriod = periodMonths * 30; // Approximate number of days
-    const totalMinutes = minutes * daysInPeriod;
+    const totalMinutes = minutesParsed * daysInPeriod;
     const totalWords = totalMinutes * wordsPerMinute;
     const averageWordsPerBook = 70000; // Assuming an average book has 50,000 words
     const numberOfBooks = Math.ceil(totalWords / averageWordsPerBook);
@@ -82,60 +60,52 @@ const CalculateBooks = () => {
         <h2>Calculate Your Reading</h2>
       </Box>
       <Box sx={{ textAlign: 'center', width: '25%' }}>
-        <form
-          onSubmit={onSubmit}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <FormControl fullWidth>
-              <InputLabel id='minutes-label'>Minutes per Day</InputLabel>
-              <Select
-                labelId='minutes-label'
-                value={minutes}
-                onChange={(e) => setMinutes(e.target.value)}
-                label='Minutes per Day'
-              >
-                {minutesOptions.map(option => (
-                  <MenuItem key={option} value={option}>{option} minutes</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
 
-            <FormControl fullWidth>
-              <InputLabel id='speed-label'>Reading Speed</InputLabel>
-              <Select
-                labelId='speed-label'
-                value={speed}
-                onChange={(e) => setSpeed(e.target.value)}
-                label='Reading Speed'
-              >
-                {speedOptions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <FormControl fullWidth>
+            <InputLabel id='minutes-label'>Minutes per Day</InputLabel>
+            <Select
+              labelId='minutes-label'
+              value={minutes}
+              onChange={(e) => setMinutes(e.target.value)}
+              label='Minutes per Day'
+            >
+              {minutesOptions.map(option => (
+                <MenuItem key={option} value={option}>{option} minutes</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-            <FormControl fullWidth>
-              <InputLabel id='period-label'>Period</InputLabel>
-              <Select
-                labelId='period-label'
-                value={period}
-                onChange={(e) => setPeriod(e.target.value)}
-                label='Period'
-              >
-                {periodOptions.map(option => (
-                  <MenuItem key={option} value={option}>{option}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id='speed-label'>Reading Speed</InputLabel>
+            <Select
+              labelId='speed-label'
+              value={speed}
+              onChange={(e) => setSpeed(e.target.value)}
+              label='Reading Speed'
+            >
+              {speedOptions.map(option => (
+                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-            {!isCalculateClicked &&
-            <Button type='submit' variant='contained' color='primary'>
-              Calculate
-            </Button>}
-          </div>
-        </form>
+          <FormControl fullWidth>
+            <InputLabel id='period-label'>Period</InputLabel>
+            <Select
+              labelId='period-label'
+              value={period}
+              onChange={(e) => setPeriod(e.target.value)}
+              label='Period'
+            >
+              {periodOptions.map(option => (
+                <MenuItem key={option} value={option}>{option}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
 
-        {!!booksRead && isCalculateClicked && (
+        {!!booksRead && calculateBooks && (
           <Box sx={{ marginTop: '32px' }}>
             <Typography variant='h4' sx={{
               fontWeight: 'bold',
@@ -147,19 +117,6 @@ const CalculateBooks = () => {
           </Box>
         )}
       </Box>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000} // Duration in milliseconds
-        onClose={handleCloseSnackbar}
-        message={snackbarMessage}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} // Position snackbar at the bottom center
-        sx={{ mt: 2 }} // Add margin-top to ensure it appears below the button
-      >
-        <Alert onClose={handleCloseSnackbar} severity='error' sx={{ width: '100%' }}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 };
