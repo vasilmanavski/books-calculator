@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
-import Root from 'src/router/Root/Root.tsx';
-import LoadingFallback from 'src/router/LoadingFallback/LoadingFallback.tsx';
-import Main from 'src/components/Main';
+import Root from '../router/Root/Root.tsx';
+import LoadingFallback from '../router/LoadingFallback/LoadingFallback.tsx';
+import Main from '../components/Main';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

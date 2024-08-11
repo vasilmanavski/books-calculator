@@ -1,5 +1,5 @@
-import Image from 'src/components/Image';
-import CalculateBooks from 'src/components/CalculateBooks';
+import Image from '../components/Image';
+import CalculateBooks from '../components/CalculateBooks';
 
 const Main = () => {
   return (

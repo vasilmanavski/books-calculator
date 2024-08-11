@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
-import TypingAnimation from 'src/components/TypingAnimation';
+import TypingAnimation from '../components/TypingAnimation';
 
 const words = ['week', 'month', 'year', 'lifetime'];
 

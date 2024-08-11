@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import DynamicText from 'src/components/DynamicText';
+import DynamicText from '../components/DynamicText';
 
 const Image = () => {
   return (
