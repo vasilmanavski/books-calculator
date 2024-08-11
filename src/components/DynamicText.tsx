@@ -33,7 +33,7 @@ const DynamicText = () => {
       }}
     >
       How many books can you devour in a
-      <TypingAnimation text={currentWord}/>
+      <TypingAnimation text={currentWord} />
     </Typography>
   );
 };
