@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import DynamicText from '../components/DynamicText';
+import imageUrl from '../assets/image.jpg';
 
 const Image = () => {
   return (
@@ -11,7 +12,7 @@ const Image = () => {
         minHeight: 'calc(38vh - 50px)',
         position: 'relative',
         overflow: 'hidden',
-        backgroundImage: 'url(src/assets/image.jpg)',
+        backgroundImage: `url(${imageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: '#fff',
